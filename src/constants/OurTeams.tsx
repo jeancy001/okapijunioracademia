@@ -17,7 +17,7 @@ export const OurTeams = [
   },
   {
     id: 3,
-    name: "Michael Brown",
+    name: "Unknown",
     role: "Backend Engineer",
     image: "/michael.jpg",
     description:
@@ -25,7 +25,7 @@ export const OurTeams = [
   },
   {
     id: 4,
-    name: "Linda Jones",
+    name: "Unknown",
     role: "Project Manager",
     image: "/linda.jpg",
     description:
