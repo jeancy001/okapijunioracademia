@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { CourseInfos } from "../constants/CourseInfo";
 const courses = [
   {
     id: 1,
@@ -38,7 +39,7 @@ function HomePage() {
     <div className="flex-col justify-center items-center  mt-5">
         
         {/* Home page and all  the informatins  */}
-        <div className="flex flex-col  md:flex-col m-10 p-5 bg-gray-100 rounded-2xl ">
+        <div className="flex flex-col p-5 w-full md:flex-col   bg-gray-100 rounded-2xl ">
       
           <span className="text-red-600 font-bold text-2xl mb-5  border-gray-300 border-b ">Education is the <span className="text-green-600">Key</span></span>
            
@@ -58,51 +59,83 @@ function HomePage() {
 
 
          {/* Zoom  videos  informations  */}
-        <div className="p-5 m-5 ">
-         <div className="relative bg-cover bg-center w-full h-[50vh] opacity-2"style={{ backgroundImage: "url('/home_LandingPage.jpg')" }}>
+        <div className="flex flex-col  w-full ">
+         <div className=" relative bg-cover bg-center w-full h-[50vh] opacity-2"style={{ backgroundImage: "url('/home_LandingPage.jpg')" }}>
           <div className="absolute inset-0 bg-black/50 flex flex-col  justify-between">
 
            <span className="font-semibold text-white m-4 p-2 ">Video  Conference </span>
 
 
          <div className="bg-gray-300 mb-0 b-0 w-full  py-3 p-2">
-             <span>Start Now  </span>
+             <button className="p-4 m-2 font-bold border border-1 border-gray-800 rounded-2xl items-center bg-gray-100 text-gray-800 hover:bg-green-800 hover:text-gray-100 transition-transform duration-300 hover:scale-105 ">Join meeting </button>
               
         </div>
           </div>
 
-        </div> 
+        </div>
         </div>
 
 
         {/* Selection  fors  all  avaibles courses  */}
-        <div className="p-5">
-          <div className=" flex flex-col p-5">
-            <span className="font-bold text-2xl text-blue-500 ">What you need to Know </span>
+     <div className="flex flex-col w-full ">
+          <div className=" flex flex-col  ">
+            <span className="font-bold text-2xl text-blue-500 p-5">What you need to Know </span>
              
              
-                </div>
-      <div className="flex flex-wrap justify-center">
-        {courses.map((course) => (
-          <div
-            key={course.id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden m-5 w-80 hover:scale-105 transform transition duration-300"
-          >
-            <img
-              src={course.image}
-              alt={course.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-5">
-              <h2 className="text-xl font-bold mb-2">{course.title}</h2>
-              <p className="text-gray-700 text-sm">{course.description}</p>
-            </div>
           </div>
-        ))}
+     <div className="flex flex-wrap justify-center gap-6 p-4">
+  {courses.map((course) => (
+    <div
+      key={course.id}
+      className="bg-white shadow-lg rounded-2xl overflow-hidden transform hover:scale-105 transition duration-300 
+                 w-full sm:w-[45%] md:w-[30%] lg:w-[22%]"
+    >
+      <img
+        src={course.image}
+        alt={course.title}
+        className="w-full h-48 object-cover"
+      />
+      <div className="p-4">
+        <h2 className="text-lg font-semibold mb-2 text-gray-900">
+          {course.title}
+        </h2>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          {course.description}
+        </p>
       </div>
+    </div>
+  ))}
+</div>
+
 
 
         </div>
+        {/* Updcominge  features */}
+      <div className="mt-5">
+           <div className="flex flex-col justify-between sm:flex-row  md:flex-row items-center ">
+              <div className="flex flex-col mt-2 w-full ">
+               <span className="mb-5 p-2 font-bold text-2xl text-blue-600 p-5 ">Talk  with your  Teacher</span>
+
+               <div>
+                {CourseInfos.map((courseInfo)=>(
+                  <div className="m-4" key={courseInfo.id}>
+                     <span className="text-2xl text-blue-600">{courseInfo.title}</span>
+                     <p className="text-wrap block mt-2">
+                      {courseInfo.description}
+                     </p>
+                     <span className="text-gray-800 font-semibold mt-5 border-b border-gray-400">{courseInfo.teacher}</span>
+                  </div>
+                ))}
+               </div>
+              </div>
+              <div className=" relative bg-cover  bg-center w-full h-[130vh] " style={{backgroundImage:"url('/TeacherClass.jpg')"}}>
+                 <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center ">
+                  <span className="text-gray-200 font-bold ">Help your children to learn</span>
+                    
+                 </div>
+              </div>
+           </div>
+      </div>
 
        {/* Updating  the application    */}
        <div className="text-lg text-gray-700">
