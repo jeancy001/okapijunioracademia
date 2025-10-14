@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { CourseInfos } from "../constants/CourseInfo";
 import { Video } from "lucide-react";
+import { UpComingCourse } from "../constants/UpComingCourse";
+import { OurTeams } from "../constants/OurTeams";
 const courses = [
   {
     id: 1,
@@ -85,7 +87,7 @@ function HomePage() {
              
              
           </div>
-     <div className="flex flex-wrap justify-center gap-6 p-4">
+     <div className="flex flex-wrap justify-start gap-6 p-4">
   {courses.map((course) => (
     <div
       key={course.id}
@@ -111,8 +113,8 @@ function HomePage() {
 
 
 
-        </div>
-        {/* Updcominge  features */}
+  </div>
+        {/* All Courses */}
       <div className="mt-5">
            <div className="flex flex-col justify-between sm:flex-row  md:flex-row items-center ">
               <div className="flex flex-col mt-2 w-full ">
@@ -143,12 +145,59 @@ function HomePage() {
            </div>
       </div>
 
+
+      {/* Updat Comming  Courses */}
+      <div>
+         <span className="font-bold text-2xl text-gray-800 m-5">Up Coming</span>
+         <div className="flex flex-wrap  sm:flex-row md:flex-row  justify-start gap-6 p-2 ">
+           {UpComingCourse.map((UpComing)=>(
+            <div className="bg-white shadow-lg rounded-2xl overflow-hidden transform hover:scale-105 transition duration-300 
+                 w-full sm:w-[45%] md:w-[30%] lg:w-[22%]" key={UpComing.id}> 
+              <img src={UpComing.image} alt={UpComing.title}  className="w-full h-48 object-cover" />
+              <span className="text-2xl font-bold text-blue-700 m-3  mb-5 ">{UpComing.title}</span>
+              <p className="text-wrap block m-3 ">{UpComing.description}</p>
+            </div>
+           ))}
+         </div>
+      </div>
+
+
+{/* Our Teams */}
+<div className="p-5">
+  <h2 className="font-bold text-3xl text-gray-800 text-center mb-10">
+    Our Teams
+  </h2>
+
+  <div className="flex flex-wrap justify-center gap-8">
+    {OurTeams.map((ours) => (
+      <div
+        key={ours.id}
+        className="bg-white border border-gray-200 shadow-lg p-6 rounded-2xl w-full sm:w-[45%] md:w-[30%] lg:w-[22%] 
+                   transform hover:scale-105 transition duration-300 cursor-pointer"
+      >
+        <img
+          src={ours.image}
+          alt={ours.name}
+          className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
+        />
+        <div className="text-center">
+          <h3 className="text-xl font-semibold text-gray-800">{ours.name}</h3>
+          <p className="text-gray-500 text-sm mb-3">{ours.role}</p>
+          <p className="text-gray-600 text-sm leading-relaxed">
+            {ours.description}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
        {/* Updating  the application    */}
        <div className="text-lg text-gray-700">
         <p className="mb-2">
           <span className="font-semibold">Current Date:</span> {time.toLocaleDateString()}
         </p>
-
+ 
         <p>
           <span className="font-semibold">Current Time:</span>{" "}
           {time.getHours().toString().padStart(2, "0")}:
