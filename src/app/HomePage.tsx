@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { CourseInfos } from "../constants/CourseInfo";
+import { Video } from "lucide-react";
 const courses = [
   {
     id: 1,
@@ -64,8 +65,9 @@ function HomePage() {
           <div className="absolute inset-0 bg-black/50 flex flex-col  justify-between">
 
            <span className="font-semibold text-white m-4 p-2 ">Video  Conference </span>
-
-
+               <div className=" flex flex-col justify-center items-center ">
+                <Video className="text-center text-gray-100 hover:text-green-800 transition-transform duration-300 hover:scale-105" size={60}/>
+               </div>
          <div className="bg-gray-300 mb-0 b-0 w-full  py-3 p-2">
              <button className="p-4 m-2 font-bold border border-1 border-gray-800 rounded-2xl items-center bg-gray-100 text-gray-800 hover:bg-green-800 hover:text-gray-100 transition-transform duration-300 hover:scale-105 ">Join meeting </button>
               
@@ -127,6 +129,10 @@ function HomePage() {
                   </div>
                 ))}
                </div>
+                <div className="flex flex-col sm:flex-row md:flex-row items-center m-5">
+                  <button className="m-5 p-5 border border-1 border-gray-800 text-gray-800 rounded-2xl font-bold text-2xl  hover:bg-gray-800 transition-transform duration-300 hover:scale-105 hover:text-gray-100">Chat Now</button>
+                  <button className="m-5 p-5 border border-1 border-green-700 text-green-700 rounded-2xl font-bold text-2xl hover:bg-green-800 hover:text-gray-200 transition-transform duration-300 hover:scale-105">Schedule a meeting</button>
+                </div>
               </div>
               <div className=" relative bg-cover  bg-center w-full h-[130vh] " style={{backgroundImage:"url('/TeacherClass.jpg')"}}>
                  <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center ">
