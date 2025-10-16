@@ -7,10 +7,20 @@ import {
   BookOpen,
   Phone,
   GraduationCap,
+  LogOut,
 } from "lucide-react";
+import { useAuth } from "../context/AuthContex";
+import { useNavigate } from "react-router-dom";
 
 function NavPage() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); // clear user data (from context / localStorage)
+    navigate("/login"); // redirect to login page
+  };
 
   return (
     <nav className="bg-gradient-to-r from-sky-400 to-blue-500 shadow-md sticky top-0 z-50">
@@ -18,12 +28,14 @@ function NavPage() {
         {/* LOGO */}
         <div className="flex items-center space-x-2">
           <img
-            src="/logo.png" // Replace with your real logo path
+            src="/logo.png"
             alt="Junior Okapi Academia Logo"
             className="w-10 h-10 rounded-full border-2 border-white"
           />
           <span className="text-white font-bold text-xl tracking-wide">
-           <span className="text-red-400"> Okapi</span><span className="text-green-400"> Junior</span><span className="text-blue-200"> Academia</span>
+            <span className="text-red-400">Okapi</span>
+            <span className="text-green-400">Junior</span>
+            <span className="text-blue-200">Academia</span>
           </span>
         </div>
 
@@ -43,20 +55,36 @@ function NavPage() {
           </li>
           <li className="flex items-center space-x-1 hover:text-yellow-300 transition">
             <GraduationCap size={18} />
-            <a href="#myclass">My Class</a>
+            <a href="/myClass">My Class</a>
           </li>
           <li className="flex items-center space-x-1 hover:text-yellow-300 transition">
             <Phone size={18} />
             <a href="#contact">Contact</a>
           </li>
+
+          {/* LOGOUT BUTTON WHEN USER IS LOGGED IN */}
+          {user && (
+            <li
+              onClick={handleLogout}
+              className="flex items-center space-x-1 hover:text-yellow-300 transition cursor-pointer"
+            >
+              <LogOut size={18} />
+              <span>Logout</span>
+            </li>
+          )}
         </ul>
 
         {/* DESKTOP BUTTON */}
-        <div className="hidden md:block">
-          <button className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-full shadow-lg transition duration-300">
-            Join Now
-          </button>
-        </div>
+        {!user && (
+          <div className="hidden md:block">
+            <a
+              href="/login"
+              className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-full shadow-lg transition duration-300"
+            >
+              Join Now
+            </a>
+          </div>
+        )}
 
         {/* MOBILE MENU ICON */}
         <div
@@ -79,16 +107,29 @@ function NavPage() {
           <a href="#courses" className="flex items-center space-x-2">
             <BookOpen size={18} /> <span>Courses</span>
           </a>
-          <a href="#myclass" className="flex items-center space-x-2">
+          <a href="/myClass" className="flex items-center space-x-2">
             <GraduationCap size={18} /> <span>My Class</span>
           </a>
           <a href="#contact" className="flex items-center space-x-2">
             <Phone size={18} /> <span>Contact</span>
           </a>
 
-          <button className="w-full bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold py-2 rounded-full shadow-lg transition duration-300">
-            Join Now
-          </button>
+          {!user ? (
+            <button
+              onClick={() => navigate("/login")}
+              className="w-full bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold py-2 rounded-full shadow-lg transition duration-300"
+            >
+              Join Now
+            </button>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="w-full bg-red-500 hover:bg-red-400 text-white font-semibold py-2 rounded-full shadow-lg transition duration-300 flex items-center justify-center space-x-2"
+            >
+              <LogOut size={18} />
+              <span>Logout</span>
+            </button>
+          )}
         </div>
       )}
     </nav>
