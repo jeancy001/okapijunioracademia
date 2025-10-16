@@ -117,7 +117,7 @@ function NavPage() {
           {!user ? (
             <button
               onClick={() => navigate("/login")}
-              className="w-full bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold py-2 rounded-full shadow-lg transition duration-300"
+              className="w-full bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold py-2 rounded-full shadow-lg transition duration-300 hover:scale-105"
             >
               Join Now
             </button>
