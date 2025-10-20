@@ -18,8 +18,8 @@ function NavPage() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // clear user data (from context / localStorage)
-    navigate("/login"); // redirect to login page
+    logout(); 
+    navigate("/login"); 
   };
 
   return (
@@ -43,7 +43,7 @@ function NavPage() {
         <ul className="hidden md:flex space-x-8 text-white font-medium items-center">
           <li className="flex items-center space-x-1 hover:text-yellow-300 transition">
             <Home size={18} />
-            <a href="#">Home</a>
+            <a href="/">Home</a>
           </li>
           <li className="flex items-center space-x-1 hover:text-yellow-300 transition">
             <Info size={18} />
@@ -79,7 +79,7 @@ function NavPage() {
           <div className="hidden md:block">
             <a
               href="/login"
-              className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-full shadow-lg transition duration-300"
+              className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-semibold px-4 py-2 rounded-full shadow-lg transition duration-300 scale:105"
             >
               Join Now
             </a>
@@ -98,7 +98,7 @@ function NavPage() {
       {/* MOBILE DROPDOWN MENU */}
       {isOpen && (
         <div className="md:hidden bg-blue-500 text-white px-6 py-4 space-y-3">
-          <a href="#" className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2">
             <Home size={18} /> <span>Home</span>
           </a>
           <a href="#about" className="flex items-center space-x-2">
