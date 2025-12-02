@@ -6,7 +6,7 @@ import Footer from "./app/Footer";
 
 function App() {
   return (
-    <div>
+    <div className="">
       <NavPage />
       <Routes>
         <Route path="/" element={<HomePage />} />
