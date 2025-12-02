@@ -10,7 +10,7 @@ function NavPage() {
     { icon: <Home size={18} />, label: "Home", href: "/" },
     { icon: <Info size={18} />, label: "About Us", href: "#about" },
     { icon: <BookOpen size={18} />, label: "Courses", href: "#courses" },
-    { icon: <Phone size={18} />, label: "Contact", href: "#contact" },
+    { icon: <Phone size={18} />, label: "Contact", href: "/contact" },
   ];
 
   return (
