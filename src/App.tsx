@@ -6,6 +6,7 @@ import MyClass from "./components/MyClass";
 import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./components/Register";
+import Footer from "./app/Footer";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+
+      <Footer/>
     </div>
   );
 }

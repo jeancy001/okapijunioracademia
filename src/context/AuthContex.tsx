@@ -13,7 +13,7 @@ interface UserContextType {
   user: User | null;
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
- register: (username: string, email: string, password: string) => Promise<User>; // return User
+  register: (username: string, email: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
   loading: boolean;
   refreshToken: () => Promise<void>;
@@ -46,7 +46,9 @@ export const AuthProvider: React.FC<UserProviderProps> = ({ children }) => {
   // ------------------- Fetch Profile -------------------
   const fetchProfile = async () => {
     try {
-      const res = await api.get<User>("/auth/profile");
+      const res = await api.get<User>("/auth/profile", {
+        headers: { Authorization: token ? `Bearer ${token}` : "" },
+      });
       setUser(res.data);
     } catch (err) {
       console.error("Fetch profile failed:", err);
@@ -69,7 +71,7 @@ export const AuthProvider: React.FC<UserProviderProps> = ({ children }) => {
       const res = await api.post<{ user: User; token: string }>("/auth/login", { email, password });
       setUser(res.data.user);
       setToken(res.data.token);
-      localStorage.setItem("token", res.data.token); // store token for socket usage
+      localStorage.setItem("token", res.data.token);
     } catch (err) {
       setUser(null);
       setToken(null);
@@ -79,44 +81,34 @@ export const AuthProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
   };
 
+  // ------------------- Register -------------------
+  const register = async (username: string, email: string, password: string) => {
+    try {
+      const res = await api.post<{ user: User; token: string }>("/auth/register", {
+        username,
+        email,
+        password,
+      });
 
-  //register
+      const { user: newUser, token: newToken } = res.data;
+      setUser(newUser);
+      setToken(newToken);
+      localStorage.setItem("token", newToken);
 
-// ------------------- Register -------------------
-const register = async (username: string, email: string, password: string) => {
-  try {
-    const res = await api.post<{ user: User; token: string }>("/auth/register", {
-      username,
-      email,
-      password,
-    });
+      return newUser;
+    } catch (err: unknown) {
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem("token");
 
-    const { user: newUser, token: newToken } = res.data;
-
-    // Set state and localStorage
-    setUser(newUser);
-    setToken(newToken);
-    localStorage.setItem("token", newToken);
-
-    return newUser; // optional: return user data
-  } catch (err: unknown) {
-    // Clear state and token on failure
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem("token");
-
-    // Determine error message
-    let message = "Registration failed";
-    if (err && typeof err === "object") {
-      const axiosError = err as AxiosError<{ message: string }>;
-      message = axiosError.response?.data?.message || axiosError.message || message;
+      let message = "Registration failed";
+      if (err && typeof err === "object") {
+        const axiosError = err as AxiosError<{ message: string }>;
+        message = axiosError.response?.data?.message || axiosError.message || message;
+      }
+      throw { message };
     }
-
-    // Throw standardized error object
-    throw { message };
-  }
-};
-
+  };
 
   // ------------------- Logout -------------------
   const logout = async () => {
@@ -157,7 +149,7 @@ const register = async (username: string, email: string, password: string) => {
           originalRequest._retry = true;
           try {
             await refreshToken();
-            return api(originalRequest); // retry original request
+            return api(originalRequest);
           } catch {
             setUser(null);
             setToken(null);
